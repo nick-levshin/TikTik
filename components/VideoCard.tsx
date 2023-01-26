@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
-import { singleUserQuery } from '../utils/queries';
 
 interface IProps {
   post: Video;
@@ -29,15 +28,11 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
     }
   };
 
-  // const onVolumePress = () => {
-  //   if (isVideoMuted) {
-  //     videoRef.current?.muted = false;
-  //     setIsVideoMuted(false);
-  //   } else {
-  //     videoRef.current?.muted = true;
-  //     setIsVideoMuted(true);
-  //   }
-  // };
+  useEffect(() => {
+    if (videoRef?.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [isVideoMuted]);
 
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
@@ -104,11 +99,11 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
               )}
               {isVideoMuted ? (
                 <button onClick={() => setIsVideoMuted(false)}>
-                  <HiVolumeUp className="text-black text-2xl lg:text-4xl" />
+                  <HiVolumeOff className="text-black text-2xl lg:text-4xl" />
                 </button>
               ) : (
                 <button onClick={() => setIsVideoMuted(true)}>
-                  <HiVolumeOff className="text-black text-2xl lg:text-4xl" />
+                  <HiVolumeUp className="text-black text-2xl lg:text-4xl" />
                 </button>
               )}
             </div>

@@ -1,13 +1,13 @@
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaCloudUploadAlt } from 'react-icons/fa';
-import { MdDelete } from 'react-icons/md';
 import axios from 'axios';
 import { SanityAssetDocument } from '@sanity/client';
 
 import useAuthStore from '../store/authStore';
 import { client } from '../utils/client';
 import { topics } from '../utils/constants';
+import { BASE_URL } from '../utils';
 
 const Upload = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -66,14 +66,14 @@ const Upload = () => {
         },
         topic: category,
       };
-      await axios.post('http://localhost:3000/api/post', document);
+      await axios.post(`${BASE_URL}/api/post`, document);
       router.push('/');
     }
   };
 
   return (
     <div className="flex w-full h-full absolute left-0 top-[60px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center">
-      <div className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-between items-center p-14 pt-6 w-[80%]">
+      <div className="bg-white rounded-lg xl:h-[80vh] flex gap-8 flex-wrap justify-center items-center p-14 pt-6 w-[80%]">
         <div>
           <div>
             <p className="text-2xl font-bold">Upload Video</p>
